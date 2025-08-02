@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Phonebook Intro";
+
+}
+
+<div class="">
+    <button class="btn" style="padding-bottom: 15px;color:white; background-color: white">@Html.ActionLink("Account", "Login", "Account")</button>
+</div>
+
+<div class="jumbotron table-bordered btn-group-justified text-center" style="background-color: ghostwhite">
+    <h1>Welcome to my Phonebook Web App!</h1>
+    <button class="btn-lg" style="color: white;background-color:white">@Html.ActionLink("Phonebook", "PhonebookView", "Phone")</button>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+ 
+    <div class="col-md-6 col-sm-6 col-lg-6 bg-success table-bordered" style="background-color: whitesmoke">
+        <h2>This Phonebook was made using:</h2>
+        <ul>
+            <li>MVC</li>
+            <li>Bootstrap</li>
+            <li>Stored Procedures(SQL)</li>
+        </ul>
+        <br />
+    </div>
+    
+    <div class="col-md-6 col-sm-6 col-lg-6 table-bordered" style="background-color: whitesmoke">
+        <h2>This Phonebook includes the following features: </h2>
+        <ul>
+            <li>Creating Contacts</li>
+            <li>Reading Contacts</li>
+            <li>Updating Contacts</li>
+            <li>Deleting Contacts</li>
+        </ul>
+    </div>
+   
+</div>
+</div>

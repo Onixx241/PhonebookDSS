@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "PhonebookView";
+}
+
+<h2>PhonebookView</h2>
+<h1>Hello, @ViewBag.Userr</h1>
+<h2>@ViewBag.Message</h2>
+@foreach (var item in ViewBag.TestContacts)
+{
+    <h1>@item</h1>
+}
+
