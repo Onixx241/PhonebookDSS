@@ -1,5 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
+<style>
+
+</style>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +14,8 @@
 
 <body class="bg-info" style="background-color: #e5e5f7;
 opacity: 0.8;
-background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 10px ), repeating-linear-gradient( #00000055, #000000 ); padding: 0px;">
+background: radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#f7e345 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #f7e345 2px, #e5e5f7 2px) -1px 0;
+background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px; padding: 0px;">
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
