@@ -1,13 +1,49 @@
-﻿
+@model SqlModel
 @{
     ViewBag.Title = "PhonebookView";
 }
 
-<h2>PhonebookView</h2>
-<h1>Hello, @ViewBag.Userr</h1>
-<h2>@ViewBag.Message</h2>
-@foreach (var item in ViewBag.TestContacts)
-{
-    <h1>@item</h1>
-}
+    <div style="background-color:whitesmoke;margin-top: 0px;">
 
+        <h1 style="margin-top:0px;text-align: center; justify-content:center">Hello, @ViewBag.Userr</h1>
+
+        <div class="row">
+
+            <div class="col-lg-12 col-sm-12 col-md-12 text-center">
+                <div class="btn-group-lg text-center" style="justify-content:center;text-align: center;">
+                    <button class="btn-lg btn-success">Create Contact</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+
+            <h2>My Phone Numbers:</h2>
+
+            <table class="table table-striped">
+
+                <tr>
+
+                    <th><h3>First Name </h3></th>
+                    <th><h3> Last Name</h3> </th>
+                    <th><h3> Address</h3></th>
+                    <th><h3> City</h3></th>
+                    <th><h3> State</h3></th>
+                    <th><h3> Zip</h3></th>
+                </tr>
+
+                <tr>
+                    <td>Onix</td>
+                    <td>Torres</td>
+                    <td>123 Whatever St</td>
+                    <td>Bronx</td>
+                    <td>NY</td>
+                    <td>10462</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
