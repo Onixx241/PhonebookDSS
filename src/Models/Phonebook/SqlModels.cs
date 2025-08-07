@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -94,7 +94,7 @@ public class SqlModel
                 cmd.Parameters.AddWithValue("@ZIP", contact.zip);
 
 
-                cmd.BeginExecuteNonQuery();
+                cmd.ExecuteNonQuery();
             }
 
         }
