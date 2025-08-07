@@ -12,13 +12,6 @@ namespace PhonebookwithAuth.Controllers
         {
             return View();
         }
-
-
-        [Authorize]
-        public ActionResult PhonebookView() 
-        {
-
-            return View();
-        }
     }
+
 }
