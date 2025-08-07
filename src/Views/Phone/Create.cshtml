@@ -1,0 +1,33 @@
+﻿@model Contact
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create new contact..</h2>
+<div class="bg-info">
+    @using (Html.BeginForm("Create", "Phone"))
+    {
+        <p>First Name:</p>
+        <input type="text" name="F" />
+
+        <p>Last Name:</p>
+        <input type="text" name="L" />
+
+        <p>Address:</p>
+        <input type="text" name="A" />
+
+        <p>City:</p>
+        <input type="text" name="C" />
+
+        <p>State:</p>
+        <input type="text" name="S" />
+
+        <p>Zip:</p>
+        <input type="text" name="Z" />
+
+        <p>Phone Number Coming Soon...</p>
+
+        <input type="submit" name="CreateContact" />
+    }
+</div>
