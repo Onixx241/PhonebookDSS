@@ -32,7 +32,7 @@ namespace PhonebookwithAuth.Controllers
                 zip = Convert.ToInt32(Z)
             };
 
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             sql.CreateContact(contact, User.Identity.Name);
             System.Diagnostics.Debug.WriteLine(" This is working!");
@@ -56,7 +56,7 @@ namespace PhonebookwithAuth.Controllers
 
             ViewBag.Userr = User.Identity.Name;
 
-            SqlModel model = new SqlModel("D2E2SQLDEV16\\SQL19DEVF","FNETINT01","fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel model = new SqlModel("", User.Identity.Name);
 
             //temp return value
             return View("PhonebookView", model);
@@ -64,3 +64,4 @@ namespace PhonebookwithAuth.Controllers
         
     }
 }
+
