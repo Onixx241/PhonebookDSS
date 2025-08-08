@@ -100,6 +100,27 @@ public class SqlModel
         }
     }
 
+    public void DeleteContact(int id) 
+    {
+        var builder = BuildConnectionString();
+
+        string connectionString = builder.ConnectionString;
+
+        using (SqlConnection conn = new SqlConnection(connectionString)) 
+        {
+            conn.Open();
+
+            using (SqlCommand cmd = new SqlCommand("dbo.DeleteContact", conn)) 
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@ID", id);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
+
     public List<Contact> GetContacts() 
     {
         List<Contact> contacts = new List<Contact>();
