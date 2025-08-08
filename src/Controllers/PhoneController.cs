@@ -44,6 +44,10 @@ namespace PhonebookwithAuth.Controllers
         public ActionResult DeleteContact(int ID)
         {
 
+            SqlModel sql = new SqlModel("", User.Identity.Name);
+
+            sql.DeleteContact(ID);
+            System.Diagnostics.Debug.WriteLine($"Contact with ID: {ID}, Deleted");
             return RedirectToAction("PhonebookView");
         }
 
@@ -64,4 +68,3 @@ namespace PhonebookwithAuth.Controllers
         
     }
 }
-
