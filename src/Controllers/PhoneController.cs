@@ -32,7 +32,7 @@ namespace PhonebookwithAuth.Controllers
                 zip = Convert.ToInt32(Z)
             };
 
-            SqlModel sql = new SqlModel("", User.Identity.Name);
+            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
 
             sql.CreateContact(contact, User.Identity.Name);
             System.Diagnostics.Debug.WriteLine(" This is working!");
@@ -40,15 +40,23 @@ namespace PhonebookwithAuth.Controllers
 
         }
 
-        //continue here
         public ActionResult DeleteContact(int ID)
         {
 
-            SqlModel sql = new SqlModel("", User.Identity.Name);
+            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
 
             sql.DeleteContact(ID);
             System.Diagnostics.Debug.WriteLine($"Contact with ID: {ID}, Deleted");
             return RedirectToAction("PhonebookView");
+        }
+
+
+        //continue here, finish up get contact, keep adding input boxes with contact values in them 
+        [HttpGet]
+        public ActionResult EditContact(int ID) 
+        {
+            ViewBag.current = ID;
+            return View("Edit");
         }
 
 
@@ -60,7 +68,7 @@ namespace PhonebookwithAuth.Controllers
 
             ViewBag.Userr = User.Identity.Name;
 
-            SqlModel model = new SqlModel("", User.Identity.Name);
+            SqlModel model = new SqlModel("D2E2SQLDEV16\\SQL19DEVF","FNETINT01","fnetuser", "Fnetdev@2016", User.Identity.Name);
 
             //temp return value
             return View("PhonebookView", model);
