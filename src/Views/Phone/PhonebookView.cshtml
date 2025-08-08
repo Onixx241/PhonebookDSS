@@ -1,4 +1,4 @@
-﻿@model SqlModel
+@model SqlModel
 @{
     ViewBag.Title = "PhonebookView";
 }
@@ -46,7 +46,7 @@
                         <td>@contact.State</td>
                         <td>@contact.zip</td>
                         <td></td>
-                        <td><button class="btn btn-info">Edit</button>&nbsp;<button class="btn btn-danger">Delete</button></td>
+                        <td><button class="btn btn-info">Edit</button>&nbsp;<button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteContact", "Phone",new {ID = contact.ID }, null)</button></td>
                     </tr>
                 }
 
