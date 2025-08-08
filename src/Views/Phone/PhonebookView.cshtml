@@ -20,6 +20,8 @@
         <div>
 
             <h2>My Phone Numbers:</h2>
+            <input placeholder="Search"/>
+            <!--maybe make bool for search vs non search table?-->
 
             <table class="table table-striped">
 
@@ -45,8 +47,8 @@
                         <td>@contact.city</td>
                         <td>@contact.State</td>
                         <td>@contact.zip</td>
-                        <td></td>
-                        <td><button class="btn btn-info">Edit</button>&nbsp;<button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteContact", "Phone",new {ID = contact.ID }, null)</button></td>
+                        <td>@Html.ActionLink("Details","ShowNumbers","Phone")</td>
+                        <td><button class="btn btn-info">@Html.ActionLink("Edit","EditContact","Phone", new {ID = contact.ID }, null)</button>&nbsp;<button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteContact", "Phone",new {ID = contact.ID }, null)</button></td>
                     </tr>
                 }
 
