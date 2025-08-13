@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +14,7 @@ public class SqlModel
     public string currentEmail { get; set; }
     public string sampleString { get; set; }
 
-    public SqlModel(string datasource, string initialcatalog, string userid, string password, string currentUser) 
+    public SqlModel(string datasource, string initialcatalog, string userid, string password, string currentUser)
     {
         this.dataSource = datasource;
         this.initialCatalog = initialcatalog;
@@ -43,14 +43,14 @@ public class SqlModel
 
         string connectionString = builder.ConnectionString;
 
-        
 
-        using (SqlConnection conn = new SqlConnection(connectionString)) 
+
+        using (SqlConnection conn = new SqlConnection(connectionString))
         {
 
             conn.Open();
 
-            using (SqlCommand cmd = new SqlCommand("dbo.CreateContact",conn)) 
+            using (SqlCommand cmd = new SqlCommand("dbo.CreateContact", conn))
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -69,17 +69,38 @@ public class SqlModel
         }
     }
 
-    public void DeleteContact(int id) 
+    public void AddPhoneNumber(int ID, string number)
+    {
+        var builder = BuildConnectionString();
+
+        using (SqlConnection conn = new SqlConnection(builder.ConnectionString))
+        {
+            conn.Open();
+
+            using (SqlCommand cmd = new SqlCommand("dbo.AddPhone", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@ID", ID);
+                cmd.Parameters.AddWithValue("@NUMBER", number);
+
+                cmd.ExecuteNonQuery();
+
+            }
+        }
+    }
+
+    public void DeleteContact(int id)
     {
         var builder = BuildConnectionString();
 
         string connectionString = builder.ConnectionString;
 
-        using (SqlConnection conn = new SqlConnection(connectionString)) 
+        using (SqlConnection conn = new SqlConnection(connectionString))
         {
             conn.Open();
 
-            using (SqlCommand cmd = new SqlCommand("dbo.DeleteContact", conn)) 
+            using (SqlCommand cmd = new SqlCommand("dbo.DeleteContact", conn))
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -89,22 +110,72 @@ public class SqlModel
             }
         }
     }
+    public void DeleteNumber(string number) 
+    {
+        var builder = BuildConnectionString();
 
-    public List<Contact> GetContacts() 
+        string connectionString = builder.ConnectionString;
+
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            conn.Open();
+
+            using (SqlCommand cmd = new SqlCommand("dbo.DeleteNumber", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@NUMBER", number);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
+
+
+    public void EditContact(Contact contact, int ID)
+    {
+
+        var builder = BuildConnectionString();
+
+        using (SqlConnection conn = new SqlConnection(builder.ConnectionString))
+        {
+
+            conn.Open();
+
+            using (SqlCommand cmd = new SqlCommand("dbo.UpdateContact", conn))
+            {
+
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@ID", ID);
+                cmd.Parameters.AddWithValue("@FIRSTNAME", contact.firstName);
+                cmd.Parameters.AddWithValue("@LASTNAME", contact.lastName);
+                cmd.Parameters.AddWithValue("@ADDRESS", contact.address);
+                cmd.Parameters.AddWithValue("@CITY", contact.city);
+                cmd.Parameters.AddWithValue("@STATE", contact.State);
+                cmd.Parameters.AddWithValue("@ZIP", contact.zip);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+    }
+
+
+    public List<Contact> GetContacts()
     {
         List<Contact> contacts = new List<Contact>();
 
         var builder = BuildConnectionString();
 
-
-        using (SqlConnection conn = new SqlConnection(builder.ConnectionString)) 
+        using (SqlConnection conn = new SqlConnection(builder.ConnectionString))
         {
             conn.Open();
-            using (SqlCommand cmd = new SqlCommand($"SELECT * FROM CONTACTS WHERE EMAIL = '{this.currentEmail}'",conn)) 
+            using (SqlCommand cmd = new SqlCommand($"SELECT * FROM CONTACTS WHERE EMAIL = '{this.currentEmail}'", conn))
             {
                 var reader = cmd.ExecuteReader();
 
-                while (reader.Read()) 
+                while (reader.Read())
                 {
                     var temp = new Contact
                     {
@@ -120,6 +191,7 @@ public class SqlModel
 
                     };
 
+
                     contacts.Add(temp);
                 }
             }
@@ -128,9 +200,74 @@ public class SqlModel
         return contacts;
     }
 
-    public Contact GetContact() 
+    public Contact GetContact(int ID)
     {
-        return new Contact();
+        Contact retrievedContact = null;
+
+        var builder = BuildConnectionString();
+
+        using (SqlConnection conn = new SqlConnection(builder.ConnectionString))
+        {
+            conn.Open();
+
+            using (SqlCommand cmd = new SqlCommand("dbo.GetContact", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID", ID);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    retrievedContact = new Contact()
+                    {
+                        ID = Convert.ToInt32(reader["ID"].ToString()),
+                        User = (string)reader["Email"].ToString(),
+                        firstName = (string)reader["FirstName"].ToString(),
+                        lastName = (string)reader["LastName"].ToString(),
+                        address = (string)reader["Address"].ToString(),
+                        city = (string)reader["City"].ToString(),
+                        State = (string)reader["State"].ToString(),
+                        zip = Convert.ToInt32(reader["Zip"].ToString())
+                    };
+                }
+
+            }
+        }
+
+        return retrievedContact;
     }
+
+    
+    public List<PhoneNumber> GetPhoneNumbers(int ID) 
+    {
+        List<PhoneNumber> numbers = new List<PhoneNumber>();
+
+        var builder = BuildConnectionString();
+
+        using (SqlConnection conn = new SqlConnection(builder.ConnectionString))
+        {
+            conn.Open();
+
+            using (SqlCommand cmd = new SqlCommand("dbo.GetNumbers", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@ID", ID);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read()) 
+                {
+                    PhoneNumber temp = new PhoneNumber() 
+                    {
+                        number = reader["number"].ToString()
+                    };
+
+                    numbers.Add(temp);
+                }
+            }
+        }
+        return numbers;
+    }
+
 
 }
