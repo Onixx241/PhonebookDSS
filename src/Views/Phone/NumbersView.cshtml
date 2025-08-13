@@ -1,0 +1,49 @@
+﻿@model SqlModel
+@{
+    ViewBag.Title = "NumbersView";
+    WebGrid grid = new WebGrid(Model.GetPhoneNumbers(ViewBag.ID));
+}
+<style>
+    .webGrid {
+        width: 100%;
+        padding: 10px;
+        margin:10px;
+        background-color: ghostwhite;
+    }
+
+    .rows {
+        background-color: whitesmoke;
+    }
+
+    .header {
+        background-color: darkgray;
+        text-align: right;
+        justify-content: center;
+    }
+
+    .select {
+        background-color: grey;
+    }
+</style>
+<!--Numbers and number creation/deletion basically same screen as phonebookview-->
+
+<div class="jumbotron">
+    <table>
+        <tr>
+            <th><h2>Numbers for @ViewBag.First</h2></th>
+            <th></th>
+        </tr>
+        <div style="text-align:center; justify-content:center;">
+            <button class="btn-lg btn-success text-center" style="text-align:center; justify-content:center">@Html.ActionLink("Add Number", "AddNumber", "Phone", new { ID = ViewBag.ID, F = ViewBag.First }, null)</button>
+        </div>
+@grid.GetHtml(tableStyle: "webGrid", headerStyle: "header", selectedRowStyle:
+ "select", rowStyle: "rows", fillEmptyRows: true, columns: grid.Columns(
+     grid.Column("number", "Phone Numbers"),
+grid.Column(header: "Actions", format:
+                            @<text>
+                                <button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteNumber", "Phone", new { num = item.number, F = ViewBag.First, ID = ViewBag.ID }, null)</button>
+                            </text>)))
+
+
+    </table>
+</div>

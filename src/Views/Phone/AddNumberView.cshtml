@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "AddNumberView";
+}
+
+<h2>AddNumberView</h2>
+@using (Html.BeginForm())
+{
+<div class="text-center" style="justify-content:center">
+
+    <p>Phone Number:</p>
+    <input placeholder="Number" name="P" />
+    <input type="text" name="ID" value="@ViewBag.PassedID" style="display:none;" />
+    <input type="text" name="Name" value="@ViewBag.Name" style="display:none;" />
+    <input type="submit" />
+
+</div>
+}

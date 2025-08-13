@@ -1,11 +1,37 @@
-@model SqlModel
+﻿@model IEnumerable<Contact>
 @{
     ViewBag.Title = "PhonebookView";
+    WebGrid newGrid = new WebGrid(Model, rowsPerPage: 15);
+    
+    
 }
+    <style>
+        .webGrid 
+        {
+            width: 100%;
+            padding:10px;
+            background-color: ghostwhite;
+            
+        }
+        .rows 
+        {
+            background-color: whitesmoke;
+        }
+        .header 
+        {
+            background-color: darkgray;
+        }
 
+        .select 
+        {
+            background-color: grey;
+        }
+
+
+    </style>
     <div style="background-color:whitesmoke;margin-top: 0px; width: 100%;">
 
-        <h1 style="margin-top:0px;text-align: center; justify-content:center">Hello, @ViewBag.Userr</h1>
+        <h1 style="margin-top:5px;text-align: center; justify-content:center">Hello, @ViewBag.Userr</h1>
 
         <div class="row">
 
@@ -17,42 +43,45 @@
 
         </div>
 
-        <div>
+        <div style="margin:25px">
 
             <h2>My Phone Numbers:</h2>
-            <input placeholder="Search"/>
-            <!--maybe make bool for search vs non search table?-->
 
-            <table class="table table-striped">
 
-                <tr>
+            <input id="livesearchtags" name="livesearchtags"  placeholder="Search" />
+            <div id="result" class="tag-results">
 
-                    <th><h3>First Name </h3></th>
-                    <th><h3> Last Name</h3> </th>
-                    <th><h3> Address</h3></th>
-                    <th><h3> City</h3></th>
-                    <th><h3> State</h3></th>
-                    <th><h3> Zip</h3></th>
-                    <th><h3> Phone Number</h3></th>
-                </tr>
+                <!--maybe make bool for search vs non search table?-->
+                <!--This does not work very well-->
+                @Html.Partial("_partialGrid")
 
-                <!--Foreach contact in contacts...-->
-                @foreach (var contact in Model.GetContacts())
-                {
-                    <tr>
-                        <!--Add actionlink with id parameter for delete/update functions-->
-                        <td>@contact.firstName</td>
-                        <td>@contact.lastName</td>
-                        <td>@contact.address</td>
-                        <td>@contact.city</td>
-                        <td>@contact.State</td>
-                        <td>@contact.zip</td>
-                        <td>@Html.ActionLink("Details","ShowNumbers","Phone")</td>
-                        <td><button class="btn btn-info">@Html.ActionLink("Edit","EditContact","Phone", new {ID = contact.ID }, null)</button>&nbsp;<button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteContact", "Phone",new {ID = contact.ID }, null)</button></td>
-                    </tr>
-                }
 
-            </table>
-
+            </div>
         </div>
-    </div>
+<script>
+
+
+    document.getElementById('livesearchtags').addEventListener('keyup', function (e)
+    {
+        //Run LiveSearch on every key up 
+        LiveSearch()
+    });
+
+    function LiveSearch()
+    {
+        //Get the input value
+        let value = document.getElementById('livesearchtags').value
+
+        $.ajax
+            ({
+            type: "POST",
+            url: "/Phone/_partialGrid",
+            // Attach the value to a parameter called search
+            data: { search: value },
+            datatype: "html",
+            success: function (data) {
+                $('#result').html(data);
+            }
+        });
+    }
+</script>

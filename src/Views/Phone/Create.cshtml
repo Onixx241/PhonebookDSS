@@ -4,9 +4,10 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create new contact..</h2>
-<div class="bg-info">
-    @using (Html.BeginForm("Create", "Phone"))
+<h2 class="bg-info" style="margin-bottom:0px;background-color: whitesmoke;">Create new contact..</h2>
+<div class="bg-info text-center" style="padding-top:10px;background-color: whitesmoke;">
+
+    @using (Html.BeginForm("Createe", "Phone"))
     {
         <p>First Name:</p>
         <input type="text" name="F" />
@@ -26,8 +27,13 @@
         <p>Zip:</p>
         <input type="text" name="Z" />
 
-        <p>Phone Number Coming Soon...</p>
+        <br />
 
         <input type="submit" name="CreateContact" />
     }
+
+</div>
+
+<div class="jumbotron text-center" style="">
+    <h1>You can add phone numbers through the Details page after initial contact creation</h1>
 </div>

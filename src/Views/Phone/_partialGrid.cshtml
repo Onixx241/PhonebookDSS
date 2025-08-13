@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Contact>
+@{
+    ViewBag.Title = "_partialGrid";
+    WebGrid newGrid = new WebGrid(Model, rowsPerPage: 15);
+}
+
+<style>
+    .webGrid {
+        width: 100%;
+        padding: 10px;
+        background-color: ghostwhite;
+    }
+
+    .rows {
+        background-color: whitesmoke;
+    }
+
+    .header {
+        background-color: darkgray;
+    }
+
+    .select {
+        background-color: grey;
+    }
+</style>
+
+@newGrid.GetHtml(tableStyle: "webGrid", headerStyle: "header", selectedRowStyle:
+         "select", rowStyle: "rows", fillEmptyRows: true, columns: newGrid.Columns(newGrid.Column("firstName", "First Name"),
+         newGrid.Column("lastName", "Last Name"),
+         newGrid.Column("address", "Address"),
+         newGrid.Column("city", "City"),
+         newGrid.Column("State", "State"),
+         newGrid.Column("zip", "Zip"),
+         newGrid.Column(header: "Details", format:
+                @<text>
+                    @Html.ActionLink("Details", "NumbersView", "Phone", new { ID = item.ID, firstName = item.firstName }, null)
+                </text> ),
+
+    newGrid.Column(header: "Actions", format:
+                                @<text>
+                                    <button class="btn btn-info">@Html.ActionLink("Edit", "EditContact", "Phone", new { ID = item.ID }, null)</button>&nbsp;<button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteContact", "Phone", new { ID = item.ID }, null)</button>
+                                </text>)))

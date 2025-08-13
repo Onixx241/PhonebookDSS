@@ -1,6 +1,38 @@
+﻿
 @{
     ViewBag.Title = "Edit";
+    ViewBag.ID = ViewBag.ID;
 }
 
-<h2>Edit</h2>
-<input type="text" value="@ViewBag.current"/>
+
+<h2 class="bg-info" style="margin-bottom:0px;background-color: whitesmoke;">Edit...</h2>
+<div class="bg-info text-center" style="padding-top:10px;background-color: whitesmoke;">
+
+    @using (Html.BeginForm("EditContactt", "Phone"))
+    {
+        <p>First Name:</p>
+        <input type="text" value="@ViewBag.First" name="F" />
+
+        <p>Last Name:</p>
+        <input type="text" value="@ViewBag.Last" name="L" />
+
+        <p>Address:</p>
+        <input type="text" value="@ViewBag.Address" name="A"/>
+
+        <p>City:</p>
+        <input type="text" value="@ViewBag.City" name="C"/>
+
+        <p>State:</p>
+        <input type="text" value="@ViewBag.State" name="S"/>
+
+        <p>Zip:</p>
+        <input type="text" value="@ViewBag.Zip" name="Z"/>
+        <!--just doing this to pass ID back to Post Action-->
+        <input value="@ViewBag.ID" name="ID" style="display:none"/>
+        <br />
+        <p>Phone Number Coming Soon...</p>
+
+        <input type="submit" name="EditContact" />
+    }
+
+</div>
