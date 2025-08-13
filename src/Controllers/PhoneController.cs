@@ -31,7 +31,7 @@ namespace PhonebookwithAuth.Controllers
                 zip = Convert.ToInt32(Z)
             };
 
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             sql.CreateContact(contact, User.Identity.Name);
             System.Diagnostics.Debug.WriteLine(" This is working!");
@@ -53,7 +53,7 @@ namespace PhonebookwithAuth.Controllers
         [HttpPost]
         public ActionResult AddNumber(string P, int ID, string Name) 
         {
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             sql.AddPhoneNumber(ID, P);
 
@@ -66,7 +66,7 @@ namespace PhonebookwithAuth.Controllers
         public ActionResult DeleteContact(int ID)
         {
 
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             sql.DeleteContact(ID);
             System.Diagnostics.Debug.WriteLine($"Contact with ID: {ID}, Deleted");
@@ -75,7 +75,7 @@ namespace PhonebookwithAuth.Controllers
 
         public ActionResult DeleteNumber(string num, string F, string ID) 
         {
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             sql.DeleteNumber(num);
             return RedirectToAction("NumbersView", new { ID = ID, firstName = F });
@@ -86,7 +86,7 @@ namespace PhonebookwithAuth.Controllers
         [HttpGet]
         public ActionResult EditContact(int ID) 
         {
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             Contact currentContact = sql.GetContact(ID);
 
@@ -104,7 +104,7 @@ namespace PhonebookwithAuth.Controllers
         [HttpPost]
         public ActionResult EditContactt(string F, string L, string A, string C, string S, int Z, int ID) 
         {
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             Contact updatedContact = new Contact()
             {
@@ -134,7 +134,7 @@ namespace PhonebookwithAuth.Controllers
 
             ViewBag.Userr = User.Identity.Name;
 
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF","FNETINT01","fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             IEnumerable<Contact> model = sql.GetContacts();
 
@@ -148,7 +148,7 @@ namespace PhonebookwithAuth.Controllers
             ViewBag.ID = ID;
             ViewBag.First = firstName;
 
-            SqlModel model = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel model = new SqlModel("", User.Identity.Name);
             
             return View(model);
         }
@@ -157,7 +157,7 @@ namespace PhonebookwithAuth.Controllers
         {
             ViewBag.Userr = User.Identity.Name;
 
-            SqlModel sql = new SqlModel("D2E2SQLDEV16\\SQL19DEVF", "FNETINT01", "fnetuser", "Fnetdev@2016", User.Identity.Name);
+            SqlModel sql = new SqlModel("", User.Identity.Name);
 
             IEnumerable<Contact> model = sql.GetContacts();
 
@@ -169,4 +169,5 @@ namespace PhonebookwithAuth.Controllers
             return PartialView(model);
         }
     }
+
 }
